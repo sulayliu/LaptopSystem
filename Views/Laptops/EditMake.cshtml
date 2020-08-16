@@ -1,0 +1,50 @@
+﻿@model LaptopsLLC.Laptop
+
+@{
+    ViewBag.Title = "EditMake";
+}
+
+<h2>EditMake</h2>
+<div>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.BrandId)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.BrandId)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Model)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Model)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DollarValue)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DollarValue)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.QuantityAvailable)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.QuantityAvailable)
+    </dd>
+
+</dl>
+</div>
+
+@using (Html.BeginForm())
+{
+<div>
+    Model : @Html.TextBoxFor(model => model.Model)
+    <input type="submit" value="Change BrandId" />
+</div>
+}
+

@@ -1,0 +1,49 @@
+﻿@model LaptopsLLC.Laptop
+
+@{
+    ViewBag.Title = "AddToBrand";
+}
+
+    <h2>Add To Brand</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Brand Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Brand.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DollarValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DollarValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityAvailable)
+        </dd>
+
+    </dl>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div>
+        BrandName  : @Html.TextBox("BrandName")
+        <input type="submit" value="Change Quantity" />
+    </div>
+}

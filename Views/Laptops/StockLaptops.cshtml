@@ -1,0 +1,16 @@
+﻿@model LaptopsLLC.Laptop
+
+@{
+    ViewBag.Title = "StockLaptops";
+}
+
+    <h2>Change Stock of Laptops</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        Select a laptop: @Html.DropDownList("LaptopId", "Choose a laptop");
+        <br />
+        Quantity : @Html.EditorFor(model => model.QuantityAvailable);
+        <input type="submit" value="submit" />
+    </div>
+}

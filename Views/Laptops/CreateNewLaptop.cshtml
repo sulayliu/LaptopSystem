@@ -1,0 +1,23 @@
+﻿@model Laptop
+@{
+    ViewBag.Title = "CreateNewLaptop";
+}
+
+<h2>Create New Laptop</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        Brand:  @Html.DropDownList("BrandId")
+    </div>
+    <div>
+        Model:  @Html.EditorFor(model => model.Model)
+    </div>
+    <div>
+        Price:  @Html.EditorFor(model => model.DollarValue)
+    </div>
+    <div>
+        Quantity:   @Html.EditorFor(model => model.QuantityAvailable)
+    </div>
+    <input type="submit" value="submit" />
+}

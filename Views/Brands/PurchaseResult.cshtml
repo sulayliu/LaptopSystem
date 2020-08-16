@@ -1,0 +1,46 @@
+﻿@model LaptopsLLC.CustomerLaptop
+
+@{
+    ViewBag.Title = "PurchaseResult";
+}
+
+<h2>PurchaseResult</h2>
+<h2>@ViewBag.Message</h2>
+@if (Model != null)
+{
+    <div>
+        <h4>CustomerLaptop</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Laptop.Model)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Laptop.Model)
+            </dd>
+
+        </dl>
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

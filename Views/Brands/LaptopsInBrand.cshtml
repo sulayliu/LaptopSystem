@@ -1,0 +1,28 @@
+﻿@model Brand
+@{
+    ViewBag.Title = "LaptopsInBrand";
+}
+
+<h2>Laptops In Brand</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        Select a brand: @Html.DropDownList("BrandId")
+        <input type="submit" value="submit" />
+    </div>
+}
+@if (Model != null)
+{
+    <h3>All of the laptops that are under the selected brand.</h3>
+    <ul>
+        @foreach (var laptop in Model.Laptops)
+        {
+        <li>
+            Model: @laptop.Model ; Price: @laptop.DollarValue ; Quantity: @laptop.QuantityAvailable 
+        </li>
+        }
+    </ul>
+
+}
+

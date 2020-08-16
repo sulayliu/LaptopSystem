@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LaptopsLLCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Wallet" Type="float" />
+  </EntityType>
+  <EntityType Name="CustomerLaptops">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="LaptopId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Laptops">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Model" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DollarValue" Type="int" Nullable="false" />
+    <Property Name="QuantityAvailable" Type="int" Nullable="false" />
+    <Property Name="BrandId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CustomerLaptops_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomerLaptops" Type="Self.CustomerLaptops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerLaptops">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerLaptops_Laptops">
+    <End Role="Laptops" Type="Self.Laptops" Multiplicity="1" />
+    <End Role="CustomerLaptops" Type="Self.CustomerLaptops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Laptops">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerLaptops">
+        <PropertyRef Name="LaptopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Laptops_Brand">
+    <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+    <End Role="Laptops" Type="Self.Laptops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Laptops">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LaptopsLLCModelStoreContainer">
+    <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerLaptops" EntityType="Self.CustomerLaptops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Laptops" EntityType="Self.Laptops" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CustomerLaptops_Customer" Association="Self.FK_CustomerLaptops_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerLaptops" EntitySet="CustomerLaptops" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerLaptops_Laptops" Association="Self.FK_CustomerLaptops_Laptops">
+      <End Role="Laptops" EntitySet="Laptops" />
+      <End Role="CustomerLaptops" EntitySet="CustomerLaptops" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Laptops_Brand" Association="Self.FK_Laptops_Brand">
+      <End Role="Brand" EntitySet="Brand" />
+      <End Role="Laptops" EntitySet="Laptops" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

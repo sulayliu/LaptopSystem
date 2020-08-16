@@ -1,0 +1,28 @@
+﻿@model  Laptop
+@{
+    ViewBag.Title = "BuyThisLaptop";
+}
+
+<h2>Buy This Laptop</h2>
+<h3>The laptop is:</h3>
+<div>
+    <h2>
+        Make: @Model.Model <br />
+        Price: @Model.DollarValue  <br />
+        Quantity: @Model.QuantityAvailable
+    </h2>
+    
+</div>
+@using (Html.BeginForm())
+{
+    
+    <div>
+        Customer: @Html.DropDownList("CustomerId")
+        Quantity: @Html.Editor("Quantity")
+        <br />
+        <input type="submit" value="Buy Now" />
+    </div>
+}
+
+<h2>@ViewBag.Message</h2>
+

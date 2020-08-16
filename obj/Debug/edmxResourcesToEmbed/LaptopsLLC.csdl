@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LaptopsLLCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Laptop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Model" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DollarValue" Type="Int32" Nullable="false" />
+    <Property Name="QuantityAvailable" Type="Int32" Nullable="false" />
+    <Property Name="BrandId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Brand" Relationship="LaptopsLLCModel.FK_Laptops_Brand" FromRole="Laptop" ToRole="Brand" />
+    <NavigationProperty Name="CustomerLaptops" Relationship="LaptopsLLCModel.FK_CustomerLaptops_Laptops" FromRole="Laptop" ToRole="CustomerLaptop" />
+  </EntityType>
+  <EntityContainer Name="LaptopsLLCEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Laptops" EntityType="Self.Laptop" />
+    <EntitySet Name="Brands" EntityType="LaptopsLLCModel.Brand" />
+    <AssociationSet Name="FK_Laptops_Brand" Association="LaptopsLLCModel.FK_Laptops_Brand">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Laptop" EntitySet="Laptops" />
+    </AssociationSet>
+    <EntitySet Name="Customers" EntityType="LaptopsLLCModel.Customer" />
+    <EntitySet Name="CustomerLaptops" EntityType="LaptopsLLCModel.CustomerLaptop" />
+    <AssociationSet Name="FK_CustomerLaptops_Customer" Association="LaptopsLLCModel.FK_CustomerLaptops_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerLaptop" EntitySet="CustomerLaptops" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerLaptops_Laptops" Association="LaptopsLLCModel.FK_CustomerLaptops_Laptops">
+      <End Role="Laptop" EntitySet="Laptops" />
+      <End Role="CustomerLaptop" EntitySet="CustomerLaptops" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Laptops" Relationship="LaptopsLLCModel.FK_Laptops_Brand" FromRole="Brand" ToRole="Laptop" />
+  </EntityType>
+  <Association Name="FK_Laptops_Brand">
+    <End Type="LaptopsLLCModel.Brand" Role="Brand" Multiplicity="1" />
+    <End Type="LaptopsLLCModel.Laptop" Role="Laptop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Laptop">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Wallet" Type="Double" />
+    <NavigationProperty Name="CustomerLaptops" Relationship="LaptopsLLCModel.FK_CustomerLaptops_Customer" FromRole="Customer" ToRole="CustomerLaptop" />
+  </EntityType>
+  <EntityType Name="CustomerLaptop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="LaptopId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="LaptopsLLCModel.FK_CustomerLaptops_Customer" FromRole="CustomerLaptop" ToRole="Customer" />
+    <NavigationProperty Name="Laptop" Relationship="LaptopsLLCModel.FK_CustomerLaptops_Laptops" FromRole="CustomerLaptop" ToRole="Laptop" />
+    <Property Name="Cost" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CustomerLaptops_Customer">
+    <End Type="LaptopsLLCModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="LaptopsLLCModel.CustomerLaptop" Role="CustomerLaptop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerLaptop">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerLaptops_Laptops">
+    <End Type="LaptopsLLCModel.Laptop" Role="Laptop" Multiplicity="1" />
+    <End Type="LaptopsLLCModel.CustomerLaptop" Role="CustomerLaptop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Laptop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerLaptop">
+        <PropertyRef Name="LaptopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
